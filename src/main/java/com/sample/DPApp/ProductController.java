@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ProductController
@@ -12,7 +13,7 @@ public class ProductController
     private ProductService service;
 
     @GetMapping("/products") // fetching entire data
-    public ArrayList<Product> getProducts()
+    public List<Product> getProducts()
     {
         return service.getProductsDetails();
     }
@@ -22,7 +23,7 @@ public class ProductController
     // Path variable -> /product/1
     // RequestParam  -> /product?id=101
 
-    // Path varibale
+    // Path variable
 //    @GetMapping("/product/{id}")
 //    public Product getProductById(@PathVariable int id)
 //    {
@@ -60,7 +61,22 @@ public class ProductController
     {
         return service.saveProductDetailsNew(product);
     }
+//  1. we have to update product that already exist
+//  2. find that Product by id
+//  3. update the new Product details
 
+    @PutMapping("/update/{id}") // id
+    public Product update(@PathVariable int id, @RequestBody Product newProduct)
+    {
+        return service.updateProduct(id, newProduct);
+    }
+
+    // Delete -> already existing
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable int id)
+    {
+        return service.deleteProduct(id);
+    }
     // java obj -> json
     // text, json, xml
 }
