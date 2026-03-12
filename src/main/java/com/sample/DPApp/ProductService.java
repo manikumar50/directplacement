@@ -42,7 +42,7 @@ public class ProductService
         product.setName(newProduct.getName());
         product.setPrice(newProduct.getPrice());
 
-        return product;
+        return repository.save(product);
     }
 
     public String deleteProduct(int id)
